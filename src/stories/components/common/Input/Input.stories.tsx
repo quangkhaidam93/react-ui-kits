@@ -1,8 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { Input } from './Input';
-import { builtinModules } from 'module';
+
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -23,14 +22,15 @@ export const Primary = Template.bind({});
 Primary.args = {
   inputType: "text",
   inputBorder: "rounded",
-  clickedHighligh: true,
-  clickedHighlighColor: "blue",
+  clickedHighlight: true,
+  clickedHighlightColor: "blue",
   inputSize: "medium",
   disabled: false,
   mutilLine: true,
   placeHolderLable: "Input Here",
   backgroundColor: "white",
   inputBorderColor: "black",
+  searchInput: false,
 };
 
 export const Search = Template.bind({});
@@ -38,14 +38,15 @@ export const Search = Template.bind({});
 Search.args = {
   inputType: "text",
   inputBorder: "rounded",
-  clickedHighligh: true,
-  clickedHighlighColor: "blue",
+  clickedHighlight: true,
+  clickedHighlightColor: "blue",
   inputSize: "medium",
   disabled: false,
   mutilLine: false,
   placeHolderLable: "Search Here",
   backgroundColor: "white",
   inputBorderColor: "black",
+  searchInput: true,
 };
 
 export const Email = Template.bind({});
@@ -53,14 +54,15 @@ export const Email = Template.bind({});
 Email.args = {
   inputType: "text",
   inputBorder: "rounded",
-  clickedHighligh: true,
-  clickedHighlighColor: "blue",
+  clickedHighlight: true,
+  clickedHighlightColor: "blue",
   inputSize: "medium",
   disabled: false,
   mutilLine: false,
   placeHolderLable: "example@myMail.com",
   backgroundColor: "white",
   inputBorderColor: "black",
+  searchInput: false,
 };
 
 export const Phone = Template.bind({});
@@ -68,14 +70,15 @@ export const Phone = Template.bind({});
 Phone.args = {
   inputType: "number",
   inputBorder: "rounded",
-  clickedHighligh: true,
-  clickedHighlighColor: "blue",
+  clickedHighlight: true,
+  clickedHighlightColor: "blue",
   inputSize: "medium",
   disabled: false,
   mutilLine: false,
   placeHolderLable: "Your Phone Number",
   backgroundColor: "white",
   inputBorderColor: "black",
+  searchInput: false,
 };
 
 export const Password = Template.bind({});
@@ -83,12 +86,13 @@ export const Password = Template.bind({});
 Password.args = {
   inputType: "text",
   inputBorder: "rounded",
-  clickedHighligh: true,
-  clickedHighlighColor: "blue",
+  clickedHighlight: true,
+  clickedHighlightColor: "blue",
   inputSize: "medium",
   disabled: false,
   mutilLine: false,
   placeHolderLable: "********",
   backgroundColor: "grey",
   inputBorderColor: "black",
+  searchInput: false,
 };
