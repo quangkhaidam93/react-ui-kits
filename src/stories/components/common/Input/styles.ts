@@ -1,72 +1,64 @@
-import styled, { css } from "styled-components";
-import React, { InputHTMLAttributes } from "react"
+import styled from "styled-components";
 
 interface InputContainerProps {
-    backgroundColor?: string,
-    clickedHighlightColor?: string,
-    autoFocus?: boolean | undefined,
-    inputBorderColor?: string,
-    inputBorder?: string,
-    inputBottomBorder?: string,
-    inputBorderStyle?: string,
-    inputBorderRadius?: string,
-    placeHolderColor?: string,
-    inputHeight?: string,
-    inputWidth?: string,
-    backgroundSymbol?: string,
-    paddingLeft?: string
+  isFocus?: boolean;
+  isDisabled?: boolean;
+  focusedBorderColor?: string;
+  borderColor?: string;
+  inputHeight?: string;
+  inputWidth?: string;
+  inputBottomBorder?: string;
+  inputBorderStyle?: string;
+  inputBorderRadius?: string;
+  backgroundColor?: string;
 }
 
 export const InputContainer = styled.div<InputContainerProps>`
-background-color: ${props => props.backgroundColor};
-background: ${props => props.backgroundSymbol} no-repeat scroll 7px 7px ;
-border-color: ${props => props.inputBorderColor};
-border-radius: ${props => props.inputBorderRadius};
-border-style: ${props => props.inputBorderStyle};
-border-bottom: ${props => props.inputBottomBorder};
-border-bottom-color: ${props => props.inputBorderColor};
-height: ${props => props.inputHeight};
-width: ${props => props.inputWidth};
-display: flex;
-/* vertical-align: text-bottom */
-padding-left: ${props => props.paddingLeft};
-outline: none;
-&:focus {
-        border-color : ${props => props.clickedHighlightColor};
-        width: 100%;
-    }
-&::placeholder {
-    color : ${props => props.placeHolderColor};
-}
+  background-color: ${(props) => (props.isDisabled ? "grey" : (props.backgroundColor))};
+  border-color: ${(props) => (props.isFocus ? (props.focusedBorderColor || 'blue') : (props.borderColor || 'black'))};
+  border-radius: ${props => props.inputBorderRadius};
+  border-style: ${props => props.inputBorderStyle};
+  border-bottom: ${props => props.inputBottomBorder};
+  border-bottom-color: ${(props) => (props.isFocus ? (props.focusedBorderColor || 'blue') : (props.borderColor || 'black'))};
+  height: ${props => props.inputHeight};
+  width: ${props => props.inputWidth};
+  padding: 4px;
+  display: flex;
 `;
 
+export const LeftIcon = styled.img`
+  width: 13px;
+  height: 13px;
+  align-self: center;
+  padding: 4 4 4 4 ;
+`;
 interface Input {
-    disabled: boolean
-    placeholder: string
+  isDisabled?: boolean;
+  backgroundColor?: string;
+  placeHolderColor?: string;
 }
 
-const CommonInput = css`
-    border-style: hidden,
+export const ClearButton = styled.button`
+border-radius: 50%;
+width: 13px;
+height: 13px;
+align-self: center;
+padding: 4 4 4 4 ;
+font-size: x-small;
+`
 
+
+export const NormalInput = styled.input<Input>`
+  border: none;
+  outline-width: 0;
+  padding: 2 2 2 2;
+  flex: 1;
+  background-color: ${(props) => (props.isDisabled ? "grey" : (props.backgroundColor))};
+  &::placeholder {
+    color : ${(props) => (props.isDisabled ? "white" : (props.placeHolderColor))};
+}
 `;
-export const NumberInput = styled.input<Input>`
-${CommonInput}
-
-`
-export const TextareaInput = styled.textarea<Input>`
-${CommonInput}
-`
-export const PasswordInput = styled.input<Input>`
-${CommonInput}
-& [type = "password"] {
-    background: red;
-}
-`
-export const TextInput = styled.input<Input>`
-${CommonInput}
-`
 
 
 
-
-
+export const TextAreaInput = styled.textarea``

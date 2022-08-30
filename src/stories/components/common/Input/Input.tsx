@@ -1,75 +1,69 @@
-import { InputContainer } from "./styles";
-import React, { InputHTMLAttributes } from "react"
-import searchSymbol from "../../../assets/searchSymbol.png"
-import { setSize, setBorder, setDisabled, setHighlightColor, setRightIcon, renderInput } from "./unity";
+import React, { InputHTMLAttributes, useState } from "react";
+import { setBorder, setRightIcon, setSize } from "./helpers";
+import { InputContainer, NormalInput, LeftIcon, ClearButton } from "./styles";
+
+
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  focusedBorderColor?: string;
+  borderColor?: string;
   inputType: "number" | "text",
   inputBorder: "rounded" | "squard" | "underline" | "hidden",
-  clickedHighlight: boolean,
-  clickedHighlightColor: string,
   inputSize: "small" | "medium" | "large",
-  disabled: boolean,
-  mutilLine: boolean,
+  isDisabled: boolean,
   placeHolderLable: string,
   backgroundColor: string,
-  autoFocus?: boolean | undefined,
-  inputBorderColor: string,
-  // inputBorderRadius?: string
-  // inputBorderStyle?: string
-  // inputBottomBorder?: string
   placeHolderColor?: string
-  searchInput?: boolean
-
+  rightIcon: "user" | "search" | "non",
 }
 
-
-
-export const Input: React.FC<InputProps> = ({
+const Input: React.FC<InputProps> = ({
+  focusedBorderColor,
+  borderColor,
   inputType,
   inputBorder,
-  clickedHighlight,
-  clickedHighlightColor,
-  inputSize = "small",
-  disabled,
-  mutilLine,
+  inputSize,
+  isDisabled,
   placeHolderLable,
   backgroundColor,
-  autoFocus,
-  inputBorderColor,
   placeHolderColor,
-  searchInput,
-  // inputBorderRadius,
-  // inputBorderStyle,
-  // inputBottomBorder,
+  rightIcon = "user",
   ...props
 }) => {
-  const { inputHeight, inputWidth } = setSize(inputSize);
-  const { inputBorderRadius, inputBorderStyle, inputBottomBorder } = setBorder(inputBorder);
-  clickedHighlightColor = setHighlightColor(clickedHighlightColor, clickedHighlight, inputBorderColor);
-  ({ backgroundColor, placeHolderColor } = setDisabled(disabled, backgroundColor));
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+  const onFocus = () => setIsFocus(true);
+  const onBlur = () => setIsFocus(false);
+  const { inputHeight, inputWidth } = setSize(inputSize)
+  const { inputBottomBorder, inputBorderStyle, inputBorderRadius } = setBorder(inputBorder)
+  const img: string | undefined = setRightIcon(rightIcon)
 
-  return (<>
+  return (
     <InputContainer
-      autoFocus={true}
-      inputBorderColor={inputBorderColor}
-      placeHolderColor={placeHolderColor}
-      backgroundColor={backgroundColor}
-      inputBorder={inputBorder}
-      inputBorderRadius={inputBorderRadius}
-      inputBorderStyle={inputBorderStyle}
-      inputBottomBorder={inputBottomBorder}
+      isFocus={isFocus}
+      focusedBorderColor={focusedBorderColor}
+      borderColor={borderColor}
       inputHeight={inputHeight}
       inputWidth={inputWidth}
-
-      // backgroundSymbol={backgroundSymbol}
-      // paddingLeft={paddingLeft}
-      {...props}
+      inputBottomBorder={inputBottomBorder}
+      inputBorderStyle={inputBorderStyle}
+      inputBorderRadius={inputBorderRadius}
+      isDisabled={isDisabled}
+      backgroundColor={backgroundColor}
     >
-      {renderInput(inputType, mutilLine, disabled, placeHolderLable, clickedHighlightColor, inputBorderColor)}
-    </InputContainer>
 
-    <img src={searchSymbol} />
-  </>
+      {img && <LeftIcon src={img} />}
+      <NormalInput
+        isDisabled={isDisabled}
+        backgroundColor={backgroundColor}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        disabled={isDisabled}
+        placeholder={placeHolderLable}
+        {...props} />
+
+      <ClearButton>×</ClearButton>
+    </InputContainer>
   );
 };
+
+export default Input;
